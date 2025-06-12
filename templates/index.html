@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plaka Tanıma Sistemi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1><i class="fa-solid fa-car"></i> Plaka Tanıma Sistemi</h1>
+        </header>
+        <div class="content-grid-topbottom">
+            <div class="top-row">
+                <section class="card">
+                    <h2><i class="fa-solid fa-image"></i> Son Yüklenen Resim</h2>
+                    <div id="result-container">
+                        <img id="plate-image" src="" alt="Son Resim" style="max-width: 100%; display: none; border-radius: 8px; box-shadow: 0 2px 8px #0001;">
+                        <p id="plate-result"></p>
+                    </div>
+                </section>
+                <section class="card">
+                    <h2><i class="fa-solid fa-list-check"></i> İzinli Plakalar</h2>
+                    <ul id="izinli-plakalar">
+                        {% for plaka in izinli_plakalar %}
+                            <li data-plaka="{{ plaka }}">
+                                <i class="fa-solid fa-circle-check" style="color: #4caf50;"></i> {{ plaka }}
+                                <button class="btn btn-red btn-delete-plaka" title="Sil" style="margin-left:auto; padding: 6px 10px; font-size: 1rem;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <form id="plaka-add-form" class="form-inline">
+                        <input type="text" id="new-plaka" placeholder="Yeni plaka" required>
+                        <button type="submit" class="btn btn-green"><i class="fa-solid fa-plus"></i> Ekle</button>
+                    </form>
+                </section>
+            </div>
+            <div class="bottom-row">
+                <section class="card log-card">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Son Giriş/Çıkış Kayıtları</h2>
+                    <div class="log-table-container">
+                        <table class="log-table">
+                            <thead>
+                                <tr>
+                                    <th>Zaman</th>
+                                    <th>Plaka</th>
+                                    <th>Durum</th>
+                                    <th>Görüntü</th>
+                                </tr>
+                            </thead>
+                            <tbody id="plaka-log-list">
+                                <!-- Loglar buraya gelecek -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
